@@ -177,6 +177,8 @@ async function logoutUser(req, res, next){
 	//POPPING OUR CURRENT SESSION USER OFF THE SERVER
 	session_obj.array.pop();
 
+	shopping_cart.list = [];
+
 	//CHANGING OUR USER TO UNREGISTERED ON THE DBS
 	const update_query = await client.query("update users set registered = false where users.user_id = $1",[unregister_user_id])
 
