@@ -1,0 +1,44 @@
+html
+	head
+		title BestBooks
+
+	body
+		include ../partials/header
+
+		h1 Create your profile: 
+		
+		form(method='POST' action='/addUser')
+			div.form-group
+				label(for='name') Name:
+				input#name(type='text', placeholder='unique username' name='name')
+			br
+			div.form-group
+				label(for='street') Street:
+				input#street(type='text',  name='street')
+			br
+			div.form-group
+				label(for='apt_no') Apt. Number:
+				input#apt_no(type='text', placeholder='3 numbers' name='apt_no' maxlength="3")
+			br
+			div.form-group
+				label(for='city') City:
+				input#city(type='text' name="city")
+			br
+			div.form-group
+				label(for='bank_name') Bank Name:
+				input#bank_name(type='text' name='bank_name')
+			br
+			div.form-group
+				label(for='card_no') Credit Card Number:
+				input#card_no(type='text' name='card_name' maxlength="9")
+			br
+			button.btn.btn-primary(type='submit') Sign up
+			
+
+
+
+
+
+
+
+		script(src="/js/default.js")

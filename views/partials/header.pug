@@ -1,0 +1,24 @@
+div#header
+	a(href="/") Home
+	| 
+
+	if s.array[0] && s.array[0].registered
+
+		p Hello #{s.array[0].name} : - 
+		form(action='/logoutUser/' + s.array[0].user_id, method="post")
+			button(type="submit") Logout/Unregister
+			
+		if cart.list[0]
+				a(href="/displayShoppingCart") Show Cart
+		else
+				a empty cart
+	else
+		a(href="/createUser") Create User
+		| 
+		form(action='/loginUser', method="post")
+			
+			| Username: 
+			input(type='text', name="username", required)
+			button(type="submit") Login
+
+	 

@@ -1,0 +1,20 @@
+html
+	head
+		title BestBooks
+
+	body
+		include ../partials/header
+		
+		h1 Welcome to BestBooks
+		p Search a book by typing it's title, ISBN, genre or author name
+		input(type="text" id="searchBar" placeholder="What are you looking for?")
+		input(type="submit" value="Search" onclick="searchLibrary()")
+		
+		p Our Library :
+			br
+			div(id="library")
+				each b in books
+					a(href="http://localhost:3000/books/" + b.isbn target="_blank")
+						|!{b.title} by !{b.author}
+					br
+		script(src="/js/default.js")
