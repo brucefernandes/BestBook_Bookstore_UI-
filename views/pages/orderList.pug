@@ -1,0 +1,21 @@
+html
+	head
+		title BestBooks
+
+	body
+		include ../partials/header
+
+		if o
+			h1 Your orders: - 
+			div(id="orders")
+				each item in o
+					a(href="http://localhost:3000/trackOrders/" + item.tracking_no target="_blank") !{item.tracking_no} 
+					label  
+					label : ----  !{item.title}
+					br
+					
+		
+
+		else
+			p you have no orders to track
+		script(src="/js/default.js")

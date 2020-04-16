@@ -24,6 +24,8 @@ app.get("/", createHome);
 app.get("/createUser", async (req, res, next) => {res.render("pages/displayCreateUser", {s : session_obj});});
 app.get("/books/:isbn", displayBook);
 app.get("/displayShoppingCart", async (req, res, next) => {res.render("pages/displayShoppingCart", {s : session_obj, cart : shopping_cart});});
+app.get("/trackOrders", trackOrders);
+app.get("/trackOrders/:tracking_no", track);
 app.post("/sendOrder", sendOrder);
 app.post("/addToCart/:isbn", addToCart);
 app.post("/addUser", addUser);
@@ -40,6 +42,32 @@ async function createHome(req, res, next){
 
 }
 
+async function trackOrders(req, res, next){
+	let user_id = session_obj.array[0].user_id;
+
+	let orders = await client.query("select * from bookstore where user_id = $1", [user_id]);
+
+	console.table(orders.rows);
+	console.log(JSON.stringify(orders.rows));
+	//let order_obj = {list : orders.rows}
+
+	res.render('pages/orderList', { s : session_obj,  cart : shopping_cart, o : orders.rows })
+
+}
+
+async function track(req, res, next){
+
+	let tracking_no = req.params.tracking_no;
+
+	const show_tracking_info = await client.query("select * from tracking_info where tracking_no = $1", [tracking_no]);
+
+	console.table(show_tracking_info.rows);
+
+	res.render("pages/trackingInfo", { s : session_obj,  cart : shopping_cart, t : show_tracking_info.rows })
+
+
+
+}
 
 async function sendOrder(req, res, next){
 
@@ -87,10 +115,10 @@ async function sendOrder(req, res, next){
 	shopping_cart.list = [];
 
 	console.log('Tracking_info: ' );
-	console.table(show_tracking_info)
+	console.table(show_tracking_info.rows)
 
 	console.log('Showing bookstore');
-	console.table(show_bookstore);
+	console.table(show_bookstore.rows);
 
 	res.redirect('/');
 

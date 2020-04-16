@@ -1,10 +1,11 @@
 div#header
 	a(href="/") Home
-	| 
+
 
 	if s.array[0] && s.array[0].registered
 
-		p Hello #{s.array[0].name} : - 
+		label   Hello #{s.array[0].name} : - 
+		a(href="/trackOrders") Track you Orders
 		form(action='/logoutUser/' + s.array[0].user_id, method="post")
 			button(type="submit") Logout/Unregister
 			
